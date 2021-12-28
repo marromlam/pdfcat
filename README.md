@@ -1,7 +1,7 @@
-# `termpdf.py`
+# pdfcat
 
 A graphical pdf (and epub and cbz) viewer, written in python, that works inside
-[kitty](https://sw.kovidgoyal.net/kitty/). 
+[kitty](https://sw.kovidgoyal.net/kitty/) terminal emulator. 
 
 I wrote this to replace [termpdf](https://github.com/dsanson/termpdf), which
 was a ridiculous hack of a bash script written around a bunch of command line
@@ -24,6 +24,11 @@ Note the alpha transparency. You can toggle this on or off by pressing `a`.
     -   PyMuPDF in turn depends on MuPDF. On OSX, `brew install mupdf-tools`.
 -   [bibtool](http://gerd-neugebauer.de/software/TeX/BibTool/en/) (optional) for faster
 	bibtex parsing than pybtex.
+
+> With M1 Macs there are some problems with mupdf and also wiht Monterey there
+> are issues with pymupdf installation. Best thing to do is build from source
+> and create the python wheel.
+
 
 # Installation
 
