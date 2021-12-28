@@ -16,6 +16,7 @@ setup(name='termpdf.py',
           'pybtex', 
           'pynvim', 
           'roman',
-          'pagelabels'
+          'pagelabels',
+          'fitz'
           ]
      )
