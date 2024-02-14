@@ -86,6 +86,7 @@ class Config:
         self.BIBTEX = ""
         # self.KITTYCMD = 'kitty --single-instance --instance-group=1'
         self.KITTYCMD = "kitty @ new-window"  # open notes in split
+        # self.KITTYCMD = "kitty @ launch --location=hsplit"
         self.TINT_COLOR = "antiquewhite2"
         self.URL_BROWSER_LIST = [
             "gnome-open",
@@ -117,7 +118,7 @@ class Config:
         config_file = os.path.expanduser(
             os.path.join(
                 os.getenv("XDG_CONFIG_HOME", "~/.config"),
-                "termpdf.py",
+                "pdfcat",
                 "config",
             )
         )
