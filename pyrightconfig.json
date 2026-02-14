@@ -1,0 +1,6 @@
+{
+  "include": ["src", "tests"],
+  "exclude": ["**/node_modules", "**/__pycache__"],
+  "pythonVersion": "3.12",
+  "typeCheckingMode": "off"
+}

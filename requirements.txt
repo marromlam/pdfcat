@@ -1,0 +1,9 @@
+PyMuPDF
+Pillow
+pdfrw
+pyperclip
+pybtex
+pynvim
+roman
+pagelabels
+rich

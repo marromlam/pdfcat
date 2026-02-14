@@ -1,0 +1,16 @@
+# Python caches
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Tool caches
+.mypy_cache/
+.pytest_cache/
+.flake8
+
+# Virtual environments
+.venv/
+venv/
+
+# Local artifacts
+pdfcat.log
