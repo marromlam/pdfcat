@@ -65,7 +65,10 @@ pdfcat --open knuth1984
 - `gg`, `G`: start/end
 - `[count]G`: go to logical page
 - `[count]J`: go to physical page
-- `b`, `B`: cycle open documents
+- `b`: next open document
+- `[count]b`: next `[count]` open documents
+- `B`: previous open document
+- `[count]B`: previous `[count]` open documents
 - `p`: jump to previous page
 
 ### Search and links

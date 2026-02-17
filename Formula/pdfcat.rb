@@ -20,9 +20,8 @@ class Pdfcat < Formula
     <<~EOS
       For best rendering support, use a Kitty-compatible terminal.
 
-      Optional tools for extra compatibility:
+      Optional tool for external compatibility checks:
         brew install timg
-        brew install viu
     EOS
   end
 

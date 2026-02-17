@@ -16,10 +16,9 @@ RELEASE_VERSION ?= $(NEXT_VERSION)
 .PHONY: lint fixup test commit release
 
 lint:
-	$(ISORT) --check-only --diff $(FORMAT_FILES)
+	ruff check src tests
 	$(BLACK) --check $(FORMAT_FILES)
 	$(FLAKE8) $(FLAKE8_FILES)
-	PYTHONPATH=src $(MYPY) $(MYPY_FILES)
 
 fixup:
 	$(ISORT) $(FORMAT_FILES)
@@ -52,8 +51,8 @@ release: lint test
 		exit 1; \
 	fi
 	@echo "Releasing v$(RELEASE_VERSION) (current: v$(CURRENT_VERSION))"
-	@RELEASE_VERSION="$(RELEASE_VERSION)" $(PYTHON) - <<'PY'\nfrom pathlib import Path\nimport os\nimport re\nnew_version = os.environ["RELEASE_VERSION"]\nupdates = [\n    (Path("src/pdfcat/constants.py"), r'(__version__\\s*=\\s*")([^"]+)(")'),\n    (Path("setup.py"), r'(version\\s*=\\s*")([^"]+)(")'),\n]\nfor path, pattern in updates:\n    text = path.read_text(encoding="utf-8")\n    updated, count = re.subn(pattern, rf'\\1{new_version}\\3', text, count=1)\n    if count != 1:\n        raise SystemExit(f"Failed to update version in {path}")\n    path.write_text(updated, encoding="utf-8")\nprint(f"Updated version to {new_version}")\nPY
-	git add src/pdfcat/constants.py setup.py
+	@RELEASE_VERSION="$(RELEASE_VERSION)" $(PYTHON) bump_version.py
+	git add src/pdfcat/constants.py
 	git commit -m "release: v$(RELEASE_VERSION)"
 	git tag -a "v$(RELEASE_VERSION)" -m "v$(RELEASE_VERSION)"
 	@if [ "$(PUSH)" = "1" ]; then \

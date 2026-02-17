@@ -14,3 +14,6 @@ venv/
 
 # Local artifacts
 pdfcat.log
+src/pdfcat.egg-info/*
+tests/.build/*
+cols.txt

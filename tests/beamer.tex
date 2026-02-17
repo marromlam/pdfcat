@@ -1,0 +1,329 @@
+% This is going to be a test of the beamer class, which is used for making
+% presentations in LaTeX. We have to prove that this works correctly as
+% a presennter tool. Checks:
+% - [x] Can enter in prestation mode (P) and see the presentation?
+% - [x] Can we see animations (z)?
+% - [x] Can we end the animation (E)?
+
+% We are going to use the default theme, and make a pretty simple
+% presentation. Presentation will have 10 real pages. But in page
+% 6 we are going to include a animation, which will be taken from
+% the following snippet:
+% https://tex.stackexchange.com/questions/387047/the-duck-pond-showcase-of-tikz-drawn-animals-ducks
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% uncomment \def\export{} below to export animation
+%% to multipage PDF a.pdf and run
+%% 
+%%  convert -density 300 -delay 4 -loop 0 -alpha remove a.pdf b.gif
+%%
+%% to get an animated GIF b.gif at 100/4 = 25 frames per s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\def\export{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \ifdefined\export
+%   \documentclass[export]{standalone}
+% \else
+%   \documentclass{standalone}
+% \fi  
+%
+% \usepackage{animate}
+% \usepackage{xsavebox}
+% \usepackage{tikzducks}
+% \usepackage{graphicx}
+% \usetikzlibrary{shapes.callouts,calc}
+%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %% adjustable parameter: frame number; 
+% %% enlarge for smoothness 
+% \newcommand\framefac{2} % times 72
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \newcommand\DuckSong[1]{\ifcase#1
+% All%
+% \or
+% my%
+% \or
+% little%
+% \or
+% ducklings,%
+% \or
+% Swimming%
+% \or
+% in%
+% \or
+% the%
+% \or
+% lake,%
+% \or
+% Heads%
+% \or
+% dunk%
+% \or
+% in%
+% \or
+% the%
+% \or
+% water,%
+% \or
+% As%
+% \or
+% little%
+% \or
+% tails%
+% \or
+% do%
+% \or
+% shake.%
+% \fi%
+% }
+%
+% \ExplSyntaxOn
+% \let\intEval\int_eval:n
+% \let\intMod\int_mod:nn
+% \let\intComp\int_compare:nTF
+% \let\intCase\int_case:nnF
+% \ExplSyntaxOff
+%
+% \begin{document}
+%
+% \xsbox{Duck}{\tikz{\duck}}%
+% \xsbox{CarlaDuck}{\tikz{\duck[pizza,squareglasses=brown!50!black,longhair=black!70!brown]}}%
+% \xsbox{Boat}{\tikz{%
+%   \filldraw[fill=white,line width=0.1pt] (0.6,0.71)--(1,1.2)--(1.4,0.71)--(1,0.6)--cycle;
+%   \node[scale=0.1,rotate=10,anchor=south east] at (2.3,0.9) {\includegraphics{pauloTransp}};
+%   \filldraw[fill=white,line width=0.1pt] (0,0)--(2,0)--(2.4,1)--(1,0.6)--(-0.4,1)--cycle;}}%
+% \begin{animateinline}[autoplay, loop, controls=false]{25}
+%   \multiframe{\intEval{72*\framefac}}{iX=0+1}{
+%   \begin{tikzpicture}
+%     \fill[use as bounding box,white!90!blue] (-1,-1) rectangle (7.2,3);
+%     \node[scale=2,anchor=center,rotate=6*cos(360/(72*\framefac-1)*\iX)] at ({-3.8+\iX*13.8/(72*\framefac-1)},{0.9+0.1*sin(360/(72*\framefac-1)*\iX)}){\theBoat};
+%     \fill[blue!60!black] plot[variable=\x,domain=-1:7.2,samples=82] ({\x},{0.1+0.3*sin(100*(\x-0.5*\iX/10/\framefac))})--(7.2,-1)--(-1,-1)--(-1,0);
+%     \fill[blue] plot[variable=\x,domain=-1:7.2,samples=82] ({\x},{0.05+0.3*sin(100*(\x-\iX/10/\framefac))})--(7.2,-1)--(-1,-1)--(-1,0);
+%     \node[rotate=27.63*cos(100*(2.2-\iX/10/\framefac))] (duck) at ({2.2},{0.95+0.3*sin(100*(2.2-\iX/10/\framefac))}){\theCarlaDuck};
+%     \node[ellipse callout,text width=3.5em,align=center,draw,anchor=east,callout absolute pointer={($(duck.west)+(0.3,0.1)$)},fill=white] (song)
+%       at ($(duck)+(-1,1)$) {\makebox[0pt][c]{\DuckSong{\intEval{(\iX-\intMod{\iX}{4*\framefac})/(4*\framefac)}}}};
+%     \foreach \duckscal/\duckoff in {0.3/0,0.25/1,0.2/2,0.15/3,0.12/4}  
+%       \node[
+%         rotate=\intComp{\duckoff<4}{0}{\intComp{\iX<36*\framefac}{0}{
+%         \intCase{\iX}{{36*\framefac}{22.5}{36*\framefac+1}{45}{36*\framefac+2}{67.5}{72*\framefac-3}{67.5}{72*\framefac-2}{45}{72*\framefac-1}{22.5}}{90}}}
+%         +27.63*cos(100*(3.6+\duckoff*0.7-\iX/10/\framefac)),scale=\duckscal,anchor=south] at ({3.6+\duckoff*0.7},{0.3*sin(100*(3.6+\duckoff*0.7-\iX/10/\framefac))-0.04}){\theDuck};
+%     \fill[blue] plot[variable=\x,domain=-1:7.2,samples=82] ({\x},{0.3*sin(100*(\x-\iX/10/\framefac))})--(7.2,-1)--(-1,-1)--(-1,0);
+%     \fill[blue!60!white] plot[variable=\x,domain=-1:7.2,samples=82] ({\x},{0.3*sin(100*(\x-2*\iX/10/\framefac))-0.2})--(7.2,-1)--(-1,-1)--(-1,0);
+%     \draw[white,line width=1pt] (-1,-1) rectangle (7.2,3);
+%   \end{tikzpicture}
+%   }
+% \end{animateinline}
+%
+% \end{document}
+
+\documentclass{beamer}
+
+\usepackage{tikz}
+\usepackage{xsavebox}
+\usepackage{tikzducks}
+\usepackage{hyperref}
+\usetikzlibrary{shapes.callouts,calc}
+
+\usetheme{default}
+
+\title{Chronicles of Terminal Lanterns}
+\author{Avery Quill}
+\date{April 17, 2031}
+
+% pdfcat animation segment: pages 6 to 14, 6 fps, loop enabled.
+\hypersetup{
+  pdfkeywords={demo;beamer;pdfcat;pdfcat:anim=duckloop@6-14@3@1}
+}
+
+\newcommand\framefac{2} % times 72
+
+\newcommand\DuckSong[1]{\ifcase#1
+QuackOps%
+\or
+deployed.%
+\or
+Pager%
+\or
+muted.%
+\or
+Ship%
+\or
+it%
+\or
+before%
+\or
+the%
+\or
+human%
+\or
+notices.%
+\or
+Debug%
+\or
+beak%
+\or
+mode:%
+\or
+ON.%
+\or
+Zero%
+\or
+downtime,%
+\or
+maximum%
+\or
+quack.%
+\fi%
+}
+
+\ExplSyntaxOn
+\let\intEval\int_eval:n
+\let\intMod\int_mod:nn
+\let\intComp\int_compare:nTF
+\let\intCase\int_case:nnF
+\ExplSyntaxOff
+
+\xsbox{Duck}{\tikz{\duck[sunglasses]}}%
+\xsbox{CarlaDuck}{\tikz{\duck[sunglasses,longhair=black!70!brown]}}%
+\xsbox{Boat}{\tikz{%
+  \filldraw[fill=white,line width=0.1pt] (0.6,0.71)--(1,1.2)--(1.4,0.71)--(1,0.6)--cycle;
+  \filldraw[fill=white,line width=0.1pt] (0,0)--(2,0)--(2.4,1)--(1,0.6)--(-0.4,1)--cycle;}}%
+
+\newcommand{\DuckPondFrame}[1]{%
+  \begin{tikzpicture}
+    \fill[use as bounding box,white!90!blue] (-1,-1) rectangle (7.2,3);
+    \node[scale=2,anchor=center,rotate=6*cos(360/(72*\framefac-1)*#1)] at ({-3.8+#1*13.8/(72*\framefac-1)},{0.9+0.1*sin(360/(72*\framefac-1)*#1)}){\theBoat};
+    \fill[blue!60!black] plot[variable=\x,domain=-1:7.2,samples=82] ({\x},{0.1+0.3*sin(100*(\x-0.5*#1/10/\framefac))})--(7.2,-1)--(-1,-1)--(-1,0);
+    \fill[blue] plot[variable=\x,domain=-1:7.2,samples=82] ({\x},{0.05+0.3*sin(100*(\x-#1/10/\framefac))})--(7.2,-1)--(-1,-1)--(-1,0);
+    \node[rotate=27.63*cos(100*(2.2-#1/10/\framefac))] (duck) at ({2.2},{0.95+0.3*sin(100*(2.2-#1/10/\framefac))}){\theCarlaDuck};
+    \node[ellipse callout,text width=3.5em,align=center,draw,anchor=east,callout absolute pointer={($(duck.west)+(0.3,0.1)$)},fill=white] (song)
+      at ($(duck)+(-1,1)$) {\makebox[0pt][c]{\DuckSong{\intEval{(#1-\intMod{#1}{4*\framefac})/(4*\framefac)}}}};
+    \foreach \duckscal/\duckoff in {0.3/0,0.25/1,0.2/2,0.15/3,0.12/4}
+      \node[
+        rotate=\intComp{\duckoff<4}{0}{\intComp{#1<36*\framefac}{0}{
+        \intCase{#1}{{36*\framefac}{22.5}{36*\framefac+1}{45}{36*\framefac+2}{67.5}{72*\framefac-3}{67.5}{72*\framefac-2}{45}{72*\framefac-1}{22.5}}{90}}}
+        +27.63*cos(100*(3.6+\duckoff*0.7-#1/10/\framefac)),scale=\duckscal,anchor=south] at ({3.6+\duckoff*0.7},{0.3*sin(100*(3.6+\duckoff*0.7-#1/10/\framefac))-0.04}){\theDuck};
+    \fill[blue] plot[variable=\x,domain=-1:7.2,samples=82] ({\x},{0.3*sin(100*(\x-#1/10/\framefac))})--(7.2,-1)--(-1,-1)--(-1,0);
+    \fill[blue!60!white] plot[variable=\x,domain=-1:7.2,samples=82] ({\x},{0.3*sin(100*(\x-2*#1/10/\framefac))-0.2})--(7.2,-1)--(-1,-1)--(-1,0);
+    \draw[white,line width=1pt] (-1,-1) rectangle (7.2,3);
+  \end{tikzpicture}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{What Is pdfcat?}
+  pdfcat is a terminal-first PDF viewer focused on speed and keyboard control. It supports
+  efficient navigation, text search, and presenter workflows directly in the shell.
+
+  \vspace{0.4em}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer faucibus, ligula eget
+  pulvinar feugiat, tellus lorem congue nibh, sit amet tempus sem elit sit amet justo.
+\end{frame}
+
+\begin{frame}{Why Use It}
+  \begin{itemize}
+    \item Works well in terminal-centric workflows and remote sessions.
+    \item Offers predictable keyboard-driven navigation.
+    \item Includes presenter mode and autoplay for animation-like page ranges.
+  \end{itemize}
+
+  \vspace{0.4em}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Maecenas
+  tincidunt, lectus ac gravida dictum, leo turpis viverra lorem, in feugiat odio nisi ac erat.
+\end{frame}
+
+\begin{frame}{Core Flow}
+  Typical workflow:
+  \begin{enumerate}
+    \item Open a PDF and move through pages quickly.
+    \item Trigger presenter mode when you need a split audience/speaker view.
+    \item Use autoplay keys for frame ranges tagged in document metadata.
+  \end{enumerate}
+
+  \vspace{0.4em}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id vulputate arcu,
+  eget aliquet est. Sed sit amet imperdiet massa.
+\end{frame}
+
+\begin{frame}{Testing Notes}
+  This deck is designed to validate:
+  \begin{itemize}
+    \item Presenter mode startup and shutdown.
+    \item Animation playback with \texttt{z}.
+    \item Animation end control with \texttt{E}.
+  \end{itemize}
+
+  \vspace{0.4em}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et lorem id odio
+  tristique blandit et eget neque.
+\end{frame}
+
+\begin{frame}[plain]
+  \vspace*{\fill}
+  \noindent\makebox[\paperwidth][c]{\resizebox{\paperwidth}{!}{\DuckPondFrame{0}}}
+\end{frame}
+
+\begin{frame}[plain]
+  \vspace*{\fill}
+  \noindent\makebox[\paperwidth][c]{\resizebox{\paperwidth}{!}{\DuckPondFrame{18}}}
+\end{frame}
+
+\begin{frame}[plain]
+  \vspace*{\fill}
+  \noindent\makebox[\paperwidth][c]{\resizebox{\paperwidth}{!}{\DuckPondFrame{36}}}
+\end{frame}
+
+\begin{frame}[plain]
+  \vspace*{\fill}
+  \noindent\makebox[\paperwidth][c]{\resizebox{\paperwidth}{!}{\DuckPondFrame{54}}}
+\end{frame}
+
+\begin{frame}[plain]
+  \vspace*{\fill}
+  \noindent\makebox[\paperwidth][c]{\resizebox{\paperwidth}{!}{\DuckPondFrame{72}}}
+\end{frame}
+
+\begin{frame}[plain]
+  \vspace*{\fill}
+  \noindent\makebox[\paperwidth][c]{\resizebox{\paperwidth}{!}{\DuckPondFrame{90}}}
+\end{frame}
+
+\begin{frame}[plain]
+  \vspace*{\fill}
+  \noindent\makebox[\paperwidth][c]{\resizebox{\paperwidth}{!}{\DuckPondFrame{108}}}
+\end{frame}
+
+\begin{frame}[plain]
+  \vspace*{\fill}
+  \noindent\makebox[\paperwidth][c]{\resizebox{\paperwidth}{!}{\DuckPondFrame{126}}}
+\end{frame}
+
+\begin{frame}[plain]
+  \vspace*{\fill}
+  \noindent\makebox[\paperwidth][c]{\resizebox{\paperwidth}{!}{\DuckPondFrame{143}}}
+\end{frame}
+
+\begin{frame}{Post-Animation Notes}
+  The duck loop above is tagged for pdfcat autoplay on pages 6--14.
+  Use \texttt{z} to play and \texttt{E} to set the end page if needed.
+
+  \vspace{0.5em}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+  consectetur lectus sit amet mauris sagittis, at tincidunt arcu congue.
+\end{frame}
+
+\begin{frame}{Final Slide}
+  Thanks for watching this terminal-first beamer demo.
+
+  \vspace{0.5em}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non mi
+  pharetra, pretium sem in, accumsan nibh. Quack responsibly.
+\end{frame}
+
+\end{document}
