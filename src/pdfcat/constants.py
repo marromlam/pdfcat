@@ -1,6 +1,6 @@
 """Project metadata and CLI help text."""
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 __license__ = "MIT"
 __copyright__ = "Copyright (c) 2026"
 __author__ = "Marcos Romero Lamas"
