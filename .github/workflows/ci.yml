@@ -31,7 +31,7 @@ jobs:
           ruff check src tests
       - name: Compile check
         run: |
-          python -m py_compile src/pdfcat/*.py tests/*.py tests/integration/*.py verify_implementation.py
+          python -m py_compile src/pdfcat/*.py tests/*.py tests/integration/*.py
       - name: Run pytest
         run: |
           pytest -v --cov=src/pdfcat --cov-report=xml --cov-report=term
