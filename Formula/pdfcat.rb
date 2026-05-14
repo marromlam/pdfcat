@@ -6,13 +6,16 @@ class Pdfcat < Formula
   license "MIT"
   head "https://github.com/marromlam/pdfcat.git", branch: "main"
 
-  depends_on "python"
+  # Pin to 3.13 — Pillow (and other deps) don't have prebuilt wheels for
+  # 3.14 yet, which forces a from-source build that needs jpeg/libtiff/etc.
+  depends_on "python@3.13"
 
   def install
-    python = Formula["python"].opt_bin/"python3"
+    python = Formula["python@3.13"].opt_bin/"python3.13"
 
     system python, "-m", "venv", libexec
-    system libexec/"bin/python", "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"
+    system libexec/"bin/python", "-m", "pip", "install", "--upgrade", "pip", "setuptools",
+ "wheel"
     system libexec/"bin/pip", "install", buildpath
 
     bin.install_symlink libexec/"bin/pdfcat"
