@@ -1,6 +1,8 @@
 class Pdfcat < Formula
   desc "Terminal PDF reader optimized for Kitty graphics protocol"
   homepage "https://github.com/marromlam/pdfcat"
+  url "https://github.com/marromlam/pdfcat/archive/refs/tags/v0.0.3.tar.gz"
+  sha256 "29ef10fdd4fed7e9005ea70223924d64ae7b8e7bdbd1850a2110aabe1b0a50a3"
   license "MIT"
   head "https://github.com/marromlam/pdfcat.git", branch: "main"
 
